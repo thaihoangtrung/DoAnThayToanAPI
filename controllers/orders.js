@@ -6,7 +6,6 @@ let cartModel = require('../schemas/cart');
 module.exports = {
     CreateOrder: async function (userId, items, totalAmount, couponCode, shippingInfo) {
         try {
-            // Create order
             let newOrder = new orderModel({
                 user: userId,
                 items,
@@ -21,7 +20,6 @@ module.exports = {
             });
             await newOrder.save();
 
-            // Delete user's cart after successful order
             await cartModel.findOneAndDelete({ user: userId });
 
             return newOrder;
